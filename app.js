@@ -22,9 +22,6 @@ app.use(
     credentials: true,
   })
 );
-header.Add("Access-Control-Allow-Origin", "*");
-header.Add("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
-header.Add("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
 // Using routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/task", taskRouter);
