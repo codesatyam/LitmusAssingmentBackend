@@ -9,6 +9,6 @@ router.post("/login", login);
 
 router.get("/logout", logout);
 
-router.get("/me", getMyProfile);
+router.get("/profile", getMyProfile);
 
 export default router;
