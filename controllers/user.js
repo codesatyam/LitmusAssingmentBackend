@@ -2,7 +2,7 @@ import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
 import { sendCookie } from "../utils/features.js";
 import ErrorHandler from "../middlewares/error.js";
-
+import { json } from "express";
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -60,4 +60,33 @@ export const logout = (req, res) => {
       success: true,
       user: req.user,
     });
+};
+export const getAllUser = async (req, res,next) => {
+  try{
+  const users = await User.find();
+// console.log(users);
+  res.status(200).json({
+    success: true,
+    users,
+  });
+}
+catch(e){
+  next(e);
+}
+};
+ 
+
+
+export const checkAnswer = async (req, res) => {
+  const _id = req.params.id;
+  const answer = req.body.answer;
+  console.log(req.body);
+
+  const data = await User.findOne({ _id });
+  console.log(data.games.level1.answer);
+  if (data.games.level1.answer === answer) {
+    res.status(200).send("correct answer");
+  } else {
+    res.status(400).send("incprrect answer");
+  }
 };

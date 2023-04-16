@@ -18,3 +18,21 @@ export const isAuthenticated = async (req, res, next) => {
   req.user = await User.findById(decoded._id);
   next();
 };
+
+
+export const authorizeRoles =  (...roles) => {
+  return async (req, res, next) => {
+    const _id = req.params._id;
+    const data = await User.findOne({ _id });
+    console.log(data)
+    if (!roles.includes(data)) {
+      return res.status(404).json({
+        success: false,
+        message: `Role: ${data} is not allowed to access this resouce `,
+      });
+      
+    }
+
+    next();
+  };
+};
